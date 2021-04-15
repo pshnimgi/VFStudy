@@ -13,11 +13,20 @@
         <v-icon>mdi-magnify</v-icon>
       </v-btn>
     </v-app-bar>
-    
+
     <!-- The area in contents: use router -->
     <v-content>
       <router-view></router-view>
     </v-content>
+
+    <!-- dark mode footer & position is bottom absolutely -->
+    <v-footer app color="primary" dark absolute>
+      <v-spacer></v-spacer>
+      <div>
+        {{new Date().getFullYear()}}
+      </div>
+    </v-footer>
+
   </v-app>
 
 </template>
@@ -26,6 +35,5 @@
 
 export default {
   name: 'App'
-
 }
 </script>
