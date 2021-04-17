@@ -15,7 +15,7 @@
       </v-btn>
     </v-app-bar>
 
-    <!-- side menu area -->
+    <!-- side menu area: for sentence -->
     <v-navigation-drawer app v-model="drawer">
       <v-list-item>
         <v-list-item-content>
@@ -30,7 +30,9 @@
 
       <v-divider></v-divider>
 
-      <v-list
+      <site-menu></site-menu>
+<!--
+        <v-list
         dense
         nav
       >
@@ -48,6 +50,7 @@
           </v-list-item-content>
         </v-list-item>
       </v-list>
+-->
     </v-navigation-drawer>
 
     <!-- The area in contents: use router -->
@@ -70,14 +73,21 @@
 // Call the component in Site folder and the name is SiteTitle and SiteFooter
 import SiteTitle from '@/views/Site/Title'
 import SiteFooter from '@/views/Site/Footer'
+import SiteMenu from '@/views/Site/Menu'
 
 export default {
-  components: { SiteTitle, SiteFooter },
+  components: { SiteTitle, SiteFooter, SiteMenu },
   name: 'App',
   data () {
     return {
       drawer: false,
-      items: [],
+      // items: [
+      //   { title: 'Dashboard', icon: 'mdi-view-dashboard' },
+      //   { title: 'Dashboard', icon: 'mdi-view-dashboard' },
+      //   { title: 'Photos', icon: 'mdi-image' },
+      //   { title: 'About', icon: 'mdi-help-box' }
+      // ],
+      // right: null,
       title: 'My Title',
       footer: 'My Footer'
     }
