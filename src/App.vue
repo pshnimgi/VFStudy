@@ -6,7 +6,8 @@
       dark
     >
       <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
-      <v-toolbar-title>Vue&Firebase Study</v-toolbar-title>
+      <!-- <v-toolbar-title>Vue&Firebase Study</v-toolbar-title> -->
+      <site-title :title="title"></site-title>
       <v-spacer></v-spacer>
       <!-- button link setting -->
       <v-btn icon to="/about">
@@ -19,10 +20,10 @@
       <v-list-item>
         <v-list-item-content>
           <v-list-item-title class="title">
-            Application
+            SIDE MENUs
           </v-list-item-title>
           <v-list-item-subtitle>
-            subtext
+            subMENUs
           </v-list-item-subtitle>
         </v-list-item-content>
       </v-list-item>
@@ -55,24 +56,30 @@
     </v-content>
 
     <!-- dark mode footer & position is bottom absolutely -->
-    <v-footer app color="primary" dark absolute>
+    <!-- <v-footer app color="primary" dark absolute>
       <v-spacer></v-spacer>
       <div>
         {{new Date().getFullYear()}}
       </div>
-    </v-footer>
-
+    </v-footer> -->
+  <site-footer :footer="footer"></site-footer>
   </v-app>
-
 </template>
 
 <script>
+// Call the component in Site folder and the name is SiteTitle and SiteFooter
+import SiteTitle from '@/views/Site/Title'
+import SiteFooter from '@/views/Site/Footer'
 
 export default {
+  components: { SiteTitle, SiteFooter },
   name: 'App',
   data () {
     return {
-      drawer: false
+      drawer: false,
+      items: [],
+      title: 'My Title',
+      footer: 'My Footer'
     }
   }
 }
