@@ -88,9 +88,13 @@ export default {
       //   { title: 'About', icon: 'mdi-help-box' }
       // ],
       // right: null,
+      items: [],
       title: 'My Title',
       footer: 'My Footer'
     }
+  },
+  mounted () {
+    console.log(this.$firebase)
   }
 }
 </script>
