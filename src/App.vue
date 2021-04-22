@@ -13,6 +13,7 @@
       <v-btn icon to="/about">
         <v-icon>mdi-magnify</v-icon>
       </v-btn>
+      <v-btn icon @click="save"><v-icon>mdi-check</v-icon></v-btn>
     </v-app-bar>
 
     <!-- side menu area: for sentence -->
@@ -95,6 +96,15 @@ export default {
   },
   mounted () {
     console.log(this.$firebase)
+  },
+  methods: {
+    save () {
+      console.log('save@@@')
+      this.$firebase.database().ref().child('abcd').set({
+        title: 'abcd',
+        text: 'save20210422'
+      })
+    }
   }
 }
 </script>
