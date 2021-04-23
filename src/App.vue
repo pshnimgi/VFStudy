@@ -14,6 +14,8 @@
         <v-icon>mdi-magnify</v-icon>
       </v-btn>
       <v-btn icon @click="save"><v-icon>mdi-check</v-icon></v-btn>
+      <v-btn icon @click="read"><v-icon>mdi-read</v-icon></v-btn>
+      <v-btn icon @click="readOnce"><v-icon>mdi-one-up</v-icon></v-btn>
     </v-app-bar>
 
     <!-- side menu area: for sentence -->
@@ -100,11 +102,35 @@ export default {
   methods: {
     save () {
       console.log('save@@@')
+      // ref:root
       this.$firebase.database().ref().child('abcd').set({
         title: 'abcd',
         text: 'save20210422'
       })
+    },
+    // keep listening
+    read () {
+      // sn: snapshot
+      this.$firebase.database().ref().child('abcd').on('value', (sn) => {
+        console.log(sn)
+        console.log(sn.val())
+      })
+    },
+    // listen once
+    // readOnce () {
+    //   // sn: snapshot
+    //   this.$firebase.database().ref().child('abcd').once('value', (sn) => {
+    //     console.log(sn)
+    //     console.log(sn.val())
+    //   })
+    // },
+    // It's a good idea to treat it as a variable because it's a one
+    async readOnce () {
+      // sn: snapshot
+      const sn = await this.$firebase.database().ref().child('abcd').once('value')
+      console.log(sn.val())
     }
+
   }
 }
 </script>
