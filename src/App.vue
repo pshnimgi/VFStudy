@@ -7,7 +7,7 @@
     >
       <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
       <!-- <v-toolbar-title>Vue&Firebase Study</v-toolbar-title> -->
-      <site-title :title="title"></site-title>
+      <site-title :title="site.title"></site-title>
       <v-spacer></v-spacer>
       <!-- button link setting -->
       <v-btn icon to="/about">
@@ -33,7 +33,7 @@
 
       <v-divider></v-divider>
 
-      <site-menu></site-menu>
+      <site-menu :items="site.menu"></site-menu>
 <!--
         <v-list
         dense
@@ -68,7 +68,7 @@
         {{new Date().getFullYear()}}
       </div>
     </v-footer> -->
-  <site-footer :footer="footer"></site-footer>
+  <site-footer :footer="site.footer"></site-footer>
   </v-app>
 </template>
 
@@ -91,15 +91,38 @@ export default {
       //   { title: 'About', icon: 'mdi-help-box' }
       // ],
       // right: null,
-      items: [],
-      title: 'My Title',
-      footer: 'My Footer'
+      // for managing of site's titles, make values to one object
+      site: {
+        menu: [],
+        title: 'My Title',
+        footer: 'My Footer'
+
+      }
+      // items: [],
+      // title: 'My Title',
+      // footer: 'My Footer'
     }
+  },
+  created () {
+    this.subscribe()
   },
   mounted () {
     console.log(this.$firebase)
   },
   methods: {
+    subscribe () {
+      this.$firebase.database().ref().child('site').on('value', (sn) => {
+        const v = sn.val()
+        if (!v) {
+          this.$firebase.database().ref().child('site').set(this.site)
+        }
+        this.site = v
+      },
+      // try-catch sentence for listener
+      e => {
+        console.log(e.message)
+      })
+    },
     save () {
       console.log('save@@@')
       // ref:root
