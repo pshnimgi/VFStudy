@@ -58,33 +58,34 @@
 
 <script>
 export default {
+  props: ['items'],
   data () {
     return {
-      items:
-      [
-        {
-          title: 'HOME',
-          active: true,
-          icon: 'mdi-home',
-          subItems:
-          [
-            {
-              title: 'Dashboard',
-              to: '/'
-            },
-            {
-              title: 'About',
-              to: '/about'
-            }
-          ]
-        },
-        {
-          title: 'ABOUT',
-          // active: true,
-          icon: 'mdi-information-outline',
-          to: '/About'
-        }
-      ]
+      // items:
+      // [
+      //   {
+      //     title: 'HOME',
+      //     active: true,
+      //     icon: 'mdi-home',
+      //     subItems:
+      //     [
+      //       {
+      //         title: 'Dashboard',
+      //         to: '/'
+      //       },
+      //       {
+      //         title: 'About',
+      //         to: '/about'
+      //       }
+      //     ]
+      //   },
+      //   {
+      //     title: 'ABOUT',
+      //     // active: true,
+      //     icon: 'mdi-information-outline',
+      //     to: '/About'
+      //   }
+      // ]
     }
   }
 }

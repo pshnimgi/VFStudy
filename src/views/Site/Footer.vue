@@ -10,6 +10,9 @@
         <v-card>
           <v-card-title>
             Edit Footer
+            <v-spacer></v-spacer>
+            <v-btn icon color="success" @click="save"><v-icon>mdi-pencil</v-icon></v-btn>
+            <v-btn icon color="blue" @click="dialog=false"><v-icon>mdi-exit-run</v-icon></v-btn>
           </v-card-title>
           <v-card-text>
             <v-text-field v-model="text" outlined label="new Footer" @keypress.enter="save" hide-details></v-text-field>
@@ -32,9 +35,14 @@ export default {
     openDialog () {
       this.dialog = true
     },
-    save () {
-      this.$firebase.database().ref().child('site').update({ footer: this.text })
-      this.dialog = false
+    async save () {
+      try {
+        this.$firebase.database().ref().child('site').update({ footer: this.text })
+      } catch (e) {
+        console.log(e.message)
+      } finally {
+        this.dialog = false
+      }
     }
   }
 }

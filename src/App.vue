@@ -93,7 +93,30 @@ export default {
       // right: null,
       // for managing of site's titles, make values to one object
       site: {
-        menu: [],
+        menu: [
+          {
+            title: 'HOME',
+            active: true,
+            icon: 'mdi-home',
+            subItems:
+            [
+              {
+                title: 'Dashboard',
+                to: '/'
+              },
+              {
+                title: 'About',
+                to: '/about'
+              }
+            ]
+          },
+          {
+            title: 'ABOUT',
+            // active: true,
+            icon: 'mdi-information-outline',
+            to: '/About'
+          }
+        ],
         title: 'My Title',
         footer: 'My Footer'
 
