@@ -1,6 +1,6 @@
 // Only one tag in template tag
 <template>
-    <toolbar-title>
+    <div>
         <!-- Page Title ######  -->
         {{ title }}
         <!-- Button for edit title -->
@@ -21,7 +21,7 @@
           </v-card>
         </v-dialog>
 
-    </toolbar-title>
+    </div>
 </template>
 
 <script>

@@ -1,14 +1,9 @@
 <template>
   <v-app>
-    <v-app-bar
-      app
-      color="primary"
-      dark
-    >
-      <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
-      <!-- <v-toolbar-title>Vue&Firebase Study</v-toolbar-title> -->
+    <v-app-bar app color="primary" dark>
+      <v-app-bar-nav-icon @click="drawer = !drawer" />
       <site-title :title="site.title"></site-title>
-      <v-spacer></v-spacer>
+      <v-spacer/>
       <!-- button link setting -->
       <v-btn icon to="/about">
         <v-icon>mdi-magnify</v-icon>
@@ -19,7 +14,7 @@
     </v-app-bar>
 
     <!-- side menu area: for sentence -->
-    <v-navigation-drawer app v-model="drawer">
+    <v-navigation-drawer app v-model="drawer" width="400">
       <v-list-item>
         <v-list-item-content>
           <v-list-item-title class="title">
@@ -57,9 +52,9 @@
     </v-navigation-drawer>
 
     <!-- The area in contents: use router -->
-    <v-content>
+    <v-main>
       <router-view></router-view>
-    </v-content>
+    </v-main>
 
     <!-- dark mode footer & position is bottom absolutely -->
     <!-- <v-footer app color="primary" dark absolute>
@@ -138,6 +133,7 @@ export default {
         const v = sn.val()
         if (!v) {
           this.$firebase.database().ref().child('site').set(this.site)
+          return // 무한루프 방지
         }
         this.site = v
       },
