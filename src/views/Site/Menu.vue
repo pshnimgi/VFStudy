@@ -1,5 +1,5 @@
 <template>
-  <dv
+  <div
     max-width="400"
     class="mx-auto"
   >
@@ -8,11 +8,8 @@
       dark
     >
       <!-- <v-app-bar-nav-icon></v-app-bar-nav-icon>
-
       <v-toolbar-title>Topics</v-toolbar-title>
-
       <v-spacer></v-spacer>
-
       <v-btn icon>
         <v-icon>mdi-dots-vertical</v-icon>
       </v-btn> -->
@@ -55,12 +52,13 @@
           </v-list-item-content>
         </v-list-item>
         <!-- 새롭게 생성한 서브메뉴가 들어갈 자리 -->
-        <v-list-item>
+        <!-- 서브아이템 처리함수는 두 개의 인덱스(부모와 본인)가 필요함 -->
+        <v-list-item @click="openDialogSubItem()">
           <v-list-item-icon>
             <v-icon>mdi-plus</v-icon>
           </v-list-item-icon>
           <v-list-item-content>
-            <v-list-title>Add Sub-Menu</v-list-title>
+            <v-list-item-title>Add Sub-Menu</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
       </v-list-group>
@@ -70,7 +68,7 @@
           <v-icon>mdi-plus-thick</v-icon>
         </v-list-item-icon>
         <v-list-item-content>
-          <v-list-title>Add Menu</v-list-title>
+          <v-list-item-title>Add Menu</v-list-item-title>
         </v-list-item-content>
       </v-list-item>
     </v-list>
@@ -81,13 +79,14 @@
           Modify
           <v-spacer></v-spacer>
           <v-btn icon @click="saveItem()"><v-icon> mdi-content-save</v-icon></v-btn>
+          <v-btn color="red" icon @click="dialogItem=false"><v-icon>mdi-close-box</v-icon></v-btn>
         </v-card-title>
         <v-card-text>
-          <v-text-field v-model="formItem.title"></v-text-field>
+          <v-text-field v-model="formItem.title" @keypress.enter="saveItem()"></v-text-field>
         </v-card-text>
       </v-card>
     </v-dialog>
-  </dv>
+  </div>
 </template>
 
 <script>
@@ -96,6 +95,41 @@ export default {
   data () {
     return {
       // 메뉴와 서브메뉴 정보를 입력할 다이얼로그
+      // items: [],
+      // items: [
+      //   {
+      //     title: 'HOME',
+      //     icon: 'mdi-checkbox-intermediate',
+      //     subItems: [
+      //       {
+      //         title: 'Dashboard',
+      //         icon: 'mdi-subdirectory-arrow-right',
+      //         to: '/'
+      //       },
+      //       {
+      //         title: 'About',
+      //         icon: 'mdi-subdirectory-arrow-right',
+      //         to: '/About'
+      //       }
+      //     ]
+      //   },
+      //   {
+      //     title: 'CONTENTs',
+      //     icon: 'mdi-checkbox-intermediate',
+      //     subItems: [
+      //       {
+      //         title: 'Ready',
+      //         icon: 'mdi-subdirectory-arrow-right',
+      //         to: '/Ready'
+      //       },
+      //       {
+      //         title: 'Etc',
+      //         icon: 'mdi-subdirectory-arrow-right',
+      //         to: '/*'
+      //       }
+      //     ]
+      //   }
+      // ],
       dialogItem: false,
       dialogSubItem: false,
       formItem: {
@@ -130,7 +164,7 @@ export default {
     },
     async save () { // 메뉴정보를 디비저장처리
       try {
-        // await this.$firebase.database().ref().child('site').set({ menu: this.items }) // 생성된 내용을 통째로 저장
+        // await this.$firebase.database().ref().child('site').set({ menu: this.items })
         await this.$firebase.database().ref().child('site').child('menu').set(this.items) // 생성된 내용을 통째로 저장
       // } catch (e) {
       //   console.log(e.message)
@@ -138,6 +172,18 @@ export default {
         // Close dialog after saving
         this.dialogItem = false // 작업 후 다이얼로그 끄기
       }
+    },
+    openDialogSubItem (index, subIndex) {
+      this.selectedItemIndex = index
+      this.selectedSubItemIndex = subIndex
+      if (subIndex < 0) { // 기존 입력값이 없는 서브아이템 생성
+        this.formSubItem.title = ''
+        this.formSubItem.icon = ''
+      } else {
+        this.formSubItem.title = this.items[index].subItems[subIndex].title
+        this.formSubItem.icon = this.items[index].subItems[subIndex].icon
+      }
+      this.dialogSubItem = true
     }
   }
 }

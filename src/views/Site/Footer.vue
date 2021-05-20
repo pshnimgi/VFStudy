@@ -1,6 +1,6 @@
 <template>
-    <!-- dark mode footer & position is bottom absolutely -->
-    <v-footer app color="primary" dark absolute :footer="footer">
+    <!-- dark mode footer & position is bottom fixed/absolutely -->
+    <v-footer app color="primary" dark fixed :footer="footer">
       <v-spacer></v-spacer>
       <div>
         {{new Date().getFullYear() + ' ' + footer }}
@@ -34,13 +34,14 @@ export default {
   methods: {
     openDialog () {
       this.dialog = true
+      this.text = this.footer
     },
     async save () {
       try {
         this.$firebase.database().ref().child('site').update({ footer: this.text })
-      } catch (e) {
-        console.log(e.message)
-      } finally {
+      // } catch (e) {
+      //   console.log(e.message)
+      } finally { // toast-snackbar로 에러처리하므로 catch문은 불필요
         this.dialog = false
       }
     }

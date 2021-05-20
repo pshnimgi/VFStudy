@@ -21,3 +21,7 @@ pnpm-debug.log*
 *.njsproj
 *.sln
 *.sw?
+
+# firebase: for reusing of firebase keycode
+.firebaserc
+firebaseconfig.js
